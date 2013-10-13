@@ -45,4 +45,4 @@ With `Template.example.reactiveObject = reactiveObject`
 ```
 
 If you do `reactiveObject.normalProp = "not going to react"` the template will not update, this is normal.
-Now however, `reactiveObject.otherReativeProp = "Something Awesome!"` the template will just update!
+Now however, `reactiveObject.reativeProp = "Something Awesome!"` the template will just update!
