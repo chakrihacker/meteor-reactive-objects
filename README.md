@@ -5,6 +5,7 @@ Objects with clean reactive properties, via ECMA-262 property get/set standards.
 
 Basically ReactiveObjects = Deps + ECMA-262 setProperty function
 
+[![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects)
 
 
 Simple Example (more to come)
