@@ -15,7 +15,7 @@ var reactiveObject = {
   reativeProp: 'boring value'
 }
 
-ReactiveObjects.setObject(reactiveObject, ['reativeProp', 'otherReativeProp'])
+ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
 
 
 
