@@ -5,7 +5,8 @@ Objects with clean reactive properties, via ECMA-262 property get/set standards.
 
 Basically ReactiveObjects = Deps + ECMA-262 setProperty function
 
-# Travis-ci is currently not able to test with Meteor. To see the test run mrt test-packages <path to package>.
+# Travis-ci is currently not able to test  Meteor. 
+To see the test run mrt test-packages \<path to package\>.
 [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects)
 
 There currently are many failing test as I have writen the full project spec in tinytest. 
