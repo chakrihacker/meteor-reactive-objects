@@ -32,11 +32,13 @@ ReactiveObjects.setProperty = function (propObj, propName) {
    
   });  
   propObj[propName] = backup
+  return propObj
 }
 
 ReactiveObjects.setProperties = function (propObj, propArray) {
   for (var i = propArray.length - 1; i >= 0; i--) {
     ReactiveObjects.setProperty(propObj, propArray[i])
   };
+  return propObj
 }
 

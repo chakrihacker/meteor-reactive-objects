@@ -15,5 +15,5 @@ Package.on_test(function(api) {
   //api.use('test-helpers', 'server');
   api.use(['tinytest']);
 
-  api.add_files('ReactiveObjects.tests.js', ['client', 'server']);
+  api.add_files(['tests/test-env.tests.js','tests/public-api.tests.js','tests/private-api.tests.js'], ['client', 'server']);
 });
