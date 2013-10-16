@@ -57,27 +57,27 @@ Tinytest.add('ReactiveObjects - public api - property not white-listed persists 
 });
 
 
-//invalidate property
-Tinytest.add('ReactiveObjects - public api - invalidateProperty transforms property into a non reactive property', function(test) {
+//remove property
+Tinytest.add('ReactiveObjects - public api - removeProperty transforms property into a non reactive property', function(test) {
   obj = ReactiveObjects.setProperty({}, 'Prop')
   obj.Prop = 'value' //property setter
-  ReactiveObjects.invalidateProperty(obj, 'Prop')
+  ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
   test.isFalse(obj._reactiveDeps.hasOwnProperty('PropDeps'), 'should not have deps') 
   test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
 
   //sanity test
   obj = {notReactiveProp: 'value'}
-  ReactiveObjects.invalidateProperty(obj, 'Prop')
+  ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj, obj, 'should not pollute objects') 
 });
 
-//invalidate object
-Tinytest.add('ReactiveObjects - public api - invalidateObject transforms property into a non reactive property', function(test) {
+//remove object
+Tinytest.add('ReactiveObjects - public api - removeObject transforms property into a non reactive property', function(test) {
   //single prop
   obj = ReactiveObjects.setProperty({}, 'Prop')
   obj.Prop = 'value' //property setter
-  ReactiveObjects.invalidateObject(obj)
+  ReactiveObjects.removeObject(obj)
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
   test.isFalse(obj._reactiveDeps.hasOwnProperty('PropDeps'), 'should not have deps') 
   test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
@@ -87,7 +87,7 @@ Tinytest.add('ReactiveObjects - public api - invalidateObject transforms propert
   obj = ReactiveObjects.setProperties({}, ['Prop1','Prop2'])
   obj.Prop1 = 'value1' //property setter
   obj.Prop2 = 'value2' //property setter
-  ReactiveObjects.invalidateObject(obj)
+  ReactiveObjects.removeObject(obj)
 
   //prop1
   test.equal(obj.Prop1, 'value1', 'should call the non reactive property') //persisted
@@ -100,7 +100,7 @@ Tinytest.add('ReactiveObjects - public api - invalidateObject transforms propert
 
   //sanity test
   obj = {notReactiveProp: 'value'}
-  ReactiveObjects.invalidateObject(obj)
+  ReactiveObjects.removeObject(obj)
   test.equal(obj, obj, 'should not pollute objects') 
 });
 

@@ -12,7 +12,7 @@ Package.on_use(function (api, where) {
   
   api.add_files([
     'lib/ReactiveObjects.js',
-    'lib/invalidate.js',
+    'lib/remove.js',
     'lib/isa.js',
     'lib/transforms.js'],
     ['client', 'server']);
