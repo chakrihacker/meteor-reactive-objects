@@ -31,15 +31,21 @@ I would like to stabilize the api before 1.0.0.
 
 ## API
 
-##### setProperty(object, string)
+##### Terms & Concepts
 
-##### setProperties(object, [string])
+* object: It can be {}, an object with existing properties, coffeescript class @, or even a collection transformation.
+* property: a string representaion of the property key, ex. `object[keyName]`
+* Unless otherwise noted, the functions mutate the existing object rather then returning a new.
 
-##### removeProperty(object, string)
+##### setProperty(object, property)
+
+##### setProperties(object, [property])
+
+##### removeProperty(object, property)
 
 ##### removeObject(object)
 
-##### isReactiveProperty(object, string)
+##### isReactiveProperty(object, property)
 
 ##### isReactiveObject(object)
 
@@ -48,11 +54,6 @@ I would like to stabilize the api before 1.0.0.
 ## Simple Example
 ```js
 
-// Use any object. 
-//It can be {}, 
-//  an object with existing properties, 
-//  inside a coffeescript class, 
-//  or even a collection transformation.
 var reactiveObject = {
   normalProp: 'someObjectProp',
   reativeProp: 'value'
