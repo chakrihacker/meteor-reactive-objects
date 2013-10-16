@@ -6,6 +6,10 @@ ReactiveObjects sets up Deps dependancies inside the setProperty function.
 This means every time you update a reactive property in an object it will trigger a *invalidation*. 
 This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
+
+###### This is an [Atmosphere](https://atmosphere.meteor.com/) complient smart package for Meteorite (Meteor). 
+Install with `mrt add reactive-objects`, this package is dependant only on core Meteor's Deps smart package.
+
 ## Don't fear the Deps
 Ok, thats a lie, you should respect Deps because it is very powerful. 
 Before you use this package you should have a good understanding of Deps. 
