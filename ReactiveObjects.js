@@ -26,10 +26,10 @@ ReactiveObjects.setProperty = function (propObj, propName) {
     },
    
     set: function (value) {
-      propObj._reactiveProperties[propName] = value;
-      // (could add logic here to only call changed()
-      // if the new value is different from the old)
-      propObj._reactiveDeps[DepsName].changed();
+      if (!(value == propObj._reactiveProperties[propName])) {
+        propObj._reactiveProperties[propName] = value;
+        propObj._reactiveDeps[DepsName].changed();
+      }
     }
    
   });  

@@ -78,7 +78,7 @@ Tinytest.add('ReactiveObjects - private api - do not call deps changed if new va
       ++x;
     });
     test.equal(x, 1);
-    obj.Prop = 'foo'
+    obj.Prop = 'value'
     Deps.flush();
     test.equal(x, 1);
     handle.stop();
