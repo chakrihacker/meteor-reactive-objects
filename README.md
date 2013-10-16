@@ -22,8 +22,24 @@ These will always be updated before the readme so if something seems off, run th
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
 That said, the core api work is done. 
-If you want a new feature or, if you want to change the names, please make post an issue!
+If you want a new feature or, if you want to change the names, please post an issue!
 I would like to stabilize the api before 1.0.0. 
+
+# API
+
+#### setProperty(object, string)
+
+#### setProperties(object, [string])
+
+#### removeProperty(object, string)
+
+#### removeObject(object)
+
+#### isReactiveProperty(object, string)
+
+#### isReactiveObject(object)
+
+#### getReactiveProperties(object)
 
 # Simple Example
 ```js
