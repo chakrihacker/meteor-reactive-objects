@@ -1,14 +1,41 @@
 ReactiveObjects
 =======================
 
-Objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
+#### Add reactivity to your objects
+
+In Meteor we have a lot of near magical tools that automatically update the DOM and rerun our functions. 
+Some examples you may know are Meteor.Collections and Sessions variables.
+Now you can easily get the same reactive goodness in your objects.
+
+#### Technobabble
+ReactiveObjects creates objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
 ReactiveObjects sets up Deps dependancies inside the setProperty function. 
 This means every time you update a reactive property in an object it will trigger a *invalidation*. 
 This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
+#### Install
 
 ###### This is an [Atmosphere](https://atmosphere.meteor.com/) complient smart package for Meteorite (Meteor). 
 Install with `mrt add reactive-objects`, this package is dependant only on core Meteor's Deps smart package.
+
+## Simple Example
+```js
+
+var reactiveObject = {
+  normalProp: 'someObjectProp',
+  reativeProp: 'value'
+}
+
+ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
+
+//Now for a look at the objects state!
+reactiveObject.normalProp
+  => 'someObjectProp' //not a reactive property but it was preserved. 
+reactiveObject.reativeProp
+  => 'value' //this is now a reactive property.
+reactiveObject.otherReativeProp
+  => undefined //this now exists as a reactive property.
+```
 
 ## Don't fear the Deps
 Ok, thats a lie, you should respect Deps because it is very powerful. 
@@ -17,17 +44,6 @@ Read the docs at http://docs.meteor.com/#deps
 ##### Also checkout EventedMind's Deps videos by Chris Mather.
 Introducing Deps https://www.eventedmind.com/feed/sEwntmxWtAvjEeSSf <br>
 Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
-
-## Full Spec 'N Test
-Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
-
-To see the test run `mrt test-packages <path to package>`. 
-These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
-
-*This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
-That said, the core api work is done. 
-If you want a new feature or, if you want to change the names, please post an issue!
-I would like to stabilize the api before 1.0.0. 
 
 ## API
 
@@ -70,25 +86,6 @@ I would like to stabilize the api before 1.0.0.
   Useful if you need to work with the values in a non-reactive state.
   This lets packages like ReactiveSchema setup white-list.
   
-## Simple Example
-```js
-
-var reactiveObject = {
-  normalProp: 'someObjectProp',
-  reativeProp: 'value'
-}
-
-ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
-
-//Now for a look at the objects state!
-reactiveObject.normalProp
-  => 'someObjectProp' //not a reactive property but it was preserved. 
-reactiveObject.reativeProp
-  => 'value' //this is now a reactive property.
-reactiveObject.otherReativeProp
-  => undefined //this now exists as a reactive property.
-```
-
 ## Use Case?
 ### ReactiveSchema
 This project is intended to be a dependency of [ReactiveSchema](https://github.com/CMToups/meteor-reactive-schema)
@@ -119,3 +116,14 @@ reactiveObject.otherReativeProp = 42
   {{otherReativeProp}} <!-- 42 -->
 {{/with}}
 ```
+
+## Full Spec 'N Test
+Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
+
+To see the test run `mrt test-packages <path to package>`. 
+These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
+
+*This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
+That said, the core api work is done. 
+If you want a new feature or, if you want to change the names, please post an issue!
+I would like to stabilize the api before 1.0.0. 
