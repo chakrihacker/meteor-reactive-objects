@@ -1,15 +1,16 @@
-meteor-reactive-objects
+ReactiveObjects
 =======================
 
-Objects with clean reactive properties, via ECMA-262 property get/set standards.
-
-Basically ReactiveObjects = Deps + ECMA-262 setProperty function
+Objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
+ReactiveObjects sets up Deps dependancies inside the setProperty function. 
+This means everytime you update a property in a reactive object it will triger a *invalidation*. 
+This "automatically rerun templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
 # Don't fear the Deps
-Ok, thats a lie, you should respect deps because it is very powerful. 
+Ok, thats a lie, you should respect Deps because it is very powerful. 
 Before you use this package you should have a good understanding of Deps. 
 Read the docs at http://docs.meteor.com/#deps
-##### Also checkout Evented Mind's Deps videos by Chris Mather.
+##### Also checkout EventedMind's Deps videos by Chris Mather.
 Introducing Deps https://www.eventedmind.com/feed/sEwntmxWtAvjEeSSf <br>
 Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
