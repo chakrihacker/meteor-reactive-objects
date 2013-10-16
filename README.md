@@ -6,7 +6,11 @@ ReactiveObjects sets up Deps dependancies inside the setProperty function.
 This means every time you update a reactive property in an object it will trigger a *invalidation*. 
 This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
-# Don't fear the Deps
+
+###### This is an [Atmosphere](https://atmosphere.meteor.com/) complient smart package for Meteorite (Meteor). 
+Install with `mrt add reactive-objects`, this package is dependant only on core Meteor's Deps smart package.
+
+## Don't fear the Deps
 Ok, thats a lie, you should respect Deps because it is very powerful. 
 Before you use this package you should have a good understanding of Deps. 
 Read the docs at http://docs.meteor.com/#deps
@@ -14,23 +18,61 @@ Read the docs at http://docs.meteor.com/#deps
 Introducing Deps https://www.eventedmind.com/feed/sEwntmxWtAvjEeSSf <br>
 Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
-# Full Spec 'N Test
+## Full Spec 'N Test
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
 To see the test run `mrt test-packages <path to package>`. 
-These will always be updated before the readme so if something seems off do check; I will try to keep the doc up-to-date.
-There currently are a few failing test as I have written the full 1.0.0 spec in tinytest. 
+These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
+That said, the core api work is done. 
+If you want a new feature or, if you want to change the names, please post an issue!
+I would like to stabilize the api before 1.0.0. 
 
-# Simple Example
+## API
+
+##### Terms & Concepts
+
+* object: It can be {}, an object with existing properties, coffeescript class @, or even a collection transformation.
+* property: a string representation of the property key, ex. `object[keyName]`
+* Unless otherwise noted, the functions mutate the existing object rather then returning a new.
+
+##### setProperty(object, property)
+ - Adds a reactive property to the object and returns the object. 
+  Don't worry about overriding existing properties, defaults are preserved.
+  
+##### setProperties(object, [property])
+  - Adds a reactive properties to the object and returns the object. 
+  Don't worry about overriding existing properties, defaults are preserved.
+  
+##### removeProperty(object, property)
+  - Removes a reactive property form the object and returns the object. 
+  The property is **converted** back to a standard property with the current value. Returns the object.
+
+  - Note: to completely remove a reactive property call this function and then run `delete object.property`  
+  
+##### removeObject(object)
+  - Removes reactive properties form the object and returns the object. 
+  The properties are **converted** back to standard properties with their current values. Returns the object.
+
+  - Note: to completely remove the object just call `delete object`  
+  
+##### isReactiveProperty(object, property)
+  - Checks if the given property is reactive and returns boolean.
+   
+##### isReactiveObject(object)
+  - Checks if the object has any reactive properties and returns boolean.
+
+##### getReactiveProperties(object)
+  - Creates a *new* object with *only* the reactive properties. 
+  Nether this object nor its properties are not reactive. 
+  Calling this function will not trigger any Deps calls.
+  Useful if you need to work with the values in a non-reactive state.
+  This lets packages like ReactiveSchema setup white-list.
+  
+## Simple Example
 ```js
 
-// Use any object. 
-//It can be {}, 
-//  an object with existing properties, 
-//  inside a coffeescript class, 
-//  or even a collection transformation.
 var reactiveObject = {
   normalProp: 'someObjectProp',
   reativeProp: 'value'
@@ -50,11 +92,13 @@ reactiveObject.otherReativeProp
   => undefined //Oh, this now exits as a reactive property even though it did not have a value, sweet!
 ```
 
-# Use Case?
+## Use Case?
+### ReactiveSchema
+This project is intended to be a dependency of [ReactiveSchema](https://github.com/CMToups/meteor-reactive-schema)
 
-## Handlebars!
+### Handlebars!
 
-### The most obvious usage is reactive templates
+#### The most obvious usage is reactive templates
 
 ```html
 <!-- Lets assume: Template.example.reactiveObject = reactiveObject -->
@@ -65,7 +109,7 @@ reactiveObject.otherReativeProp
 {{/with}}
 
 ```
-### Lets change things up
+#### Lets change things up
 ```javascript
 reactiveObject.normalProp = "not going to react"
 reactiveObject.reativeProp = "Something Awesome!"
