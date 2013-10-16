@@ -18,10 +18,12 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
 To see the test run `mrt test-packages <path to package>`. 
-These will always be updated before the readme so if something seems off do check; I will try to keep the doc up-to-date.
-There currently are a few failing test as I have written the full 1.0.0 spec in tinytest. 
+These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
+That said, the core api work is done. 
+If you want a new feature or, if you want to change the names, please make post an issue!
+I would like to stabilize the api before 1.0.0. 
 
 # Simple Example
 ```js
