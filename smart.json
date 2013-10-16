@@ -3,6 +3,6 @@
   "description": "Objects with clean reactive properties, via ECMA-262 setProperty standards.",
   "homepage": "https://github.com/CMToups/meteor-reactive-objects",
   "author": "Conner D Meissner Toups",
-  "version": "0.2.0",
+  "version": "0.4.1",
   "git": "https://github.com/CMToups/meteor-reactive-objects.git"
 }
