@@ -63,7 +63,23 @@ Tinytest.add('ReactiveObjects - private api - persist default value from the old
 
   //multi property
   obj = { Prop1: 'value1', Prop2: 'value2', Prop3: 'value3' }
-  obj = ReactiveObjects.setProperties({}, ['Prop1', 'Prop2', 'Prop3'])
+  ReactiveObjects.setProperties(obj, ['Prop1', 'Prop2', 'Prop3'])
   test.equal(obj._reactiveProperties, {Prop1: 'value1', Prop2: 'value2', Prop3: 'value3'}, 'should hold the hidden properties') //property storage
 });
 
+
+// do not call changed if value is not changed
+Tinytest.add('ReactiveObjects - private api - do not call deps changed if new value is not different from the old', function(test) {
+  obj = {Prop: 'value'}
+  ReactiveObjects.setProperty(obj, 'Prop')
+    var x = 0;
+    var handle = Deps.autorun(function (handle) {
+      var arg = obj.Prop 
+      ++x;
+    });
+    test.equal(x, 1);
+    obj.Prop = 'foo'
+    Deps.flush();
+    test.equal(x, 1);
+    handle.stop();
+});
