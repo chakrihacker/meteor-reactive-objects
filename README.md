@@ -17,7 +17,7 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 # Full Spec 'N Test
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
-To see the test run `mrt test-packages \<path to package\>`. 
+To see the test run `mrt test-packages <path to package>`. 
 These will always be updated before the readme so if something seems off do check; I will try to keep the doc up-to-date.
 There currently are a few failing test as I have written the full 1.0.0 spec in tinytest. 
 
