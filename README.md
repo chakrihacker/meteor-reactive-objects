@@ -34,23 +34,42 @@ I would like to stabilize the api before 1.0.0.
 ##### Terms & Concepts
 
 * object: It can be {}, an object with existing properties, coffeescript class @, or even a collection transformation.
-* property: a string representaion of the property key, ex. `object[keyName]`
+* property: a string representation of the property key, ex. `object[keyName]`
 * Unless otherwise noted, the functions mutate the existing object rather then returning a new.
 
 ##### setProperty(object, property)
-
+ - Adds a reactive property to the object and returns the object. 
+  Don't worry about overriding existing properties, defaults are preserved.
+  
 ##### setProperties(object, [property])
-
+  - Adds a reactive properties to the object and returns the object. 
+  Don't worry about overriding existing properties, defaults are preserved.
+  
 ##### removeProperty(object, property)
+  - Removes a reactive property form the object and returns the object. 
+  The property is **converted** back to a standard property with the current value. Returns the object.
 
+  - Note: to completely remove a reactive property call this function and then run `delete object.property`  
+  
 ##### removeObject(object)
+  - Removes reactive properties form the object and returns the object. 
+  The properties are **converted** back to standard properties with their current values. Returns the object.
 
+  - Note: to completely remove the object just call `delete object`  
+  
 ##### isReactiveProperty(object, property)
-
+  - Checks if the given property is reactive and returns boolean.
+   
 ##### isReactiveObject(object)
+  - Checks if the object has any reactive properties and returns boolean.
 
 ##### getReactiveProperties(object)
-
+  - Creates a *new* object with *only* the reactive properties. 
+  Nether this object nor its properties are not reactive. 
+  Calling this function will not trigger any Deps calls.
+  Useful if you need to work with the values in a non-reactive state.
+  This lets packages like ReactiveSchema setup white-list.
+  
 ## Simple Example
 ```js
 
