@@ -3,7 +3,7 @@ ReactiveObjects
 
 Objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
 ReactiveObjects sets up Deps dependancies inside the setProperty function. 
-This means everytime you update a reactive property in an object it will triger a *invalidation*. 
+This means every time you update a reactive property in an object it will trigger a *invalidation*. 
 This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
 # Don't fear the Deps
@@ -19,46 +19,62 @@ Travis-ci is currently not able to test Meteor but here is the anyway (it return
 
 To see the test run `mrt test-packages \<path to package\>`. 
 These will always be updated before the readme so if something seems off do check; I will try to keep the doc up-to-date.
-There currently are a few failing test as I have writen the full 1.0.0 spec in tinytest. 
+There currently are a few failing test as I have written the full 1.0.0 spec in tinytest. 
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
 
-Simple Example (more to come)
+# Simple Example
 ```js
 
+// Use any object. 
+//It can be {}, 
+//  an object with existing properties, 
+//  inside a coffeescript class, 
+//  or even a collection transformation.
 var reactiveObject = {
   normalProp: 'someObjectProp',
-  reativeProp: 'boring value'
+  reativeProp: 'value'
 }
 
+
+// Just drop it in the first  argument and give your list of wanted reactive properties.
+// Don't worry about overriding existing properties. Defaults are preserved.
 ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
 
-
-
-```
-
-
-Object State
-```js
+//Now for a look at the objects state!
 reactiveObject.normalProp
-  => 'someObjectProp'
+  => 'someObjectProp' //not a reactive property but it was preserved. 
 reactiveObject.reativeProp
-  => 'boring value' //but its reactive
+  => 'value' //this is now a reactive property! Sit back and let it do your work for you.
 reactiveObject.otherReativeProp
-  => undefined //but its also reative
-
+  => undefined //Oh, this now exits as a reactive property even though it did not have a value, sweet!
 ```
 
-With `Template.example.reactiveObject = reactiveObject`
-```html
+# Use Case?
 
+## Handlebars!
+
+### The most obvious usage is reactive templates
+
+```html
+<!-- Lets assume: Template.example.reactiveObject = reactiveObject -->
 {{#with ReactiveObject}}
-  {{normalProp}}
-  {{reativeProp}}
-  {{otherReativeProp}}
+  {{normalProp}} <!-- someObjectProp -->
+  {{reativeProp}} <!-- value -->
+  {{otherReativeProp}} <!-- -->
 {{/with}}
 
 ```
-
-If you do `reactiveObject.normalProp = "not going to react"` the template will not update, this is normal.
-Now however, `reactiveObject.reativeProp = "Something Awesome!"` the template will just update!
+### Lets change things up
+```javascript
+reactiveObject.normalProp = "not going to react"
+reactiveObject.reativeProp = "Something Awesome!"
+reactiveObject.otherReativeProp = 42
+```
+```html
+{{#with ReactiveObject}}
+  {{normalProp}} <!-- someObjectProp -->
+  {{reativeProp}} <!-- Something Awesome! -->
+  {{otherReativeProp}} <!-- 42 -->
+{{/with}}
+```
