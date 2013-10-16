@@ -4,7 +4,7 @@ ReactiveObjects
 Objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
 ReactiveObjects sets up Deps dependancies inside the setProperty function. 
 This means everytime you update a reactive property in an object it will triger a *invalidation*. 
-This "automatically rerun templates and other computations" (Meteor Docs) as well as Deps.autorun().
+This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
 
 # Don't fear the Deps
 Ok, thats a lie, you should respect Deps because it is very powerful. 
