@@ -73,6 +73,8 @@ reactiveObject.otherReativeProp
 ```
 
 ## Use Case?
+### ReactiveSchema
+This project is intended to be a dependency of [ReactiveSchema](https://github.com/CMToups/meteor-reactive-schema)
 
 ### Handlebars!
 
