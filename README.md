@@ -8,9 +8,8 @@ Basically ReactiveObjects = Deps + ECMA-262 setProperty function
 # Full Spec 'N Test
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
-To see the test run mrt test-packages \<path to package\>. 
-These will always be updated before the readme so if something seems of do check, 
-but I will try to keep the doc up-to-date.
+To see the test run `mrt test-packages \<path to package\>`. 
+These will always be updated before the readme so if something seems off do check; I will try to keep the doc up-to-date.
 There currently are a few failing test as I have writen the full 1.0.0 spec in tinytest. 
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
