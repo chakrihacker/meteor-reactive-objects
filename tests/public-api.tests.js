@@ -18,7 +18,7 @@ Tinytest.add('ReactiveObjects - public api - setProperty rerun does not conflict
   test.equal(obj.secondProp, 'value2', 'should set the getter of the secondProp') //property getter
 
   //allow for graceful redefine of existing property - exact method should be tested in private api tests
-  ReactiveObjects.setProperty(obj, 'singleProp') //Also test if old object can still be used, the return should not be meaningful.
+  ReactiveObjects.setProperty(obj, 'singleProp') 
   test.equal(obj.singleProp, 'value', 'should set the getter of the singleProp') //get old value
   obj.secondProp = 'value3' //property setter
   test.equal(obj.secondProp, 'value3', 'should set the getter of the secondProp') //property getter
@@ -59,7 +59,7 @@ Tinytest.add('ReactiveObjects - public api - property not white-listed persists 
 
 //remove property
 Tinytest.add('ReactiveObjects - public api - removeProperty transforms property into a non reactive property', function(test) {
-  obj = ReactiveObjects.setProperty({}, 'Prop')
+  obj = ReactiveObjects.setProperty({basic:undefined}, 'Prop')
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
@@ -67,7 +67,7 @@ Tinytest.add('ReactiveObjects - public api - removeProperty transforms property 
   test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
 
   //sanity test
-  obj = {notReactiveProp: 'value'}
+  obj = {notReactiveProp: 'sanity'}
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj, obj, 'should not pollute objects') 
 });
@@ -75,31 +75,30 @@ Tinytest.add('ReactiveObjects - public api - removeProperty transforms property 
 //remove object
 Tinytest.add('ReactiveObjects - public api - removeObject transforms property into a non reactive property', function(test) {
   //single prop
-  obj = ReactiveObjects.setProperty({}, 'Prop')
+  obj = ReactiveObjects.setProperty({basic:undefined}, 'Prop')
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeObject(obj)
-  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
-  test.isFalse(obj._reactiveDeps.hasOwnProperty('PropDeps'), 'should not have deps') 
-  test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
+  
+  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted  
+
+  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
+  test.isFalse(obj._reactiveDeps, 'should not have any deps')
 
 
   //multi prop
-  obj = ReactiveObjects.setProperties({}, ['Prop1','Prop2'])
+  obj = ReactiveObjects.setProperties({basic:undefined}, ['Prop1','Prop2'])
   obj.Prop1 = 'value1' //property setter
   obj.Prop2 = 'value2' //property setter
   ReactiveObjects.removeObject(obj)
 
-  //prop1
   test.equal(obj.Prop1, 'value1', 'should call the non reactive property') //persisted
-  test.isFalse(obj._reactiveDeps.hasOwnProperty('Prop1Deps'), 'should not have deps') 
-  test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop1'), 'should not have a hidden property')
-  //prop2
   test.equal(obj.Prop2, 'value2', 'should call the non reactive property') //persisted
-  test.isFalse(obj._reactiveDeps.hasOwnProperty('Prop2Deps'), 'should not have deps') 
-  test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop2'), 'should not have a hidden property')
+
+  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
+  test.isFalse(obj._reactiveDeps, 'should not have any deps')
 
   //sanity test
-  obj = {notReactiveProp: 'value'}
+  obj = {notReactiveProp: 'sanity'}
   ReactiveObjects.removeObject(obj)
   test.equal(obj, obj, 'should not pollute objects') 
 });
@@ -151,7 +150,7 @@ Tinytest.add('ReactiveObjects - public api - getObjectProperties returns an obje
 
   //with value
   obj.Prop = 'value'
-  test.equal(ReactiveObjects.getObjectProperties(obj), {Prop: 'value'}, 'should return an object with a property, even if its undefined')
+  test.equal(ReactiveObjects.getObjectProperties(obj), {Prop: 'value'}, 'should return an object with a property')
 
 });
 
