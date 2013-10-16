@@ -78,18 +78,15 @@ var reactiveObject = {
   reativeProp: 'value'
 }
 
-
-// Just drop it in the first  argument and give your list of wanted reactive properties.
-// Don't worry about overriding existing properties. Defaults are preserved.
 ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
 
 //Now for a look at the objects state!
 reactiveObject.normalProp
   => 'someObjectProp' //not a reactive property but it was preserved. 
 reactiveObject.reativeProp
-  => 'value' //this is now a reactive property! Sit back and let it do your work for you.
+  => 'value' //this is now a reactive property.
 reactiveObject.otherReativeProp
-  => undefined //Oh, this now exits as a reactive property even though it did not have a value, sweet!
+  => undefined //this now exits as a reactive property.
 ```
 
 ## Use Case?
