@@ -86,7 +86,7 @@ reactiveObject.normalProp
 reactiveObject.reativeProp
   => 'value' //this is now a reactive property.
 reactiveObject.otherReativeProp
-  => undefined //this now exits as a reactive property.
+  => undefined //this now exists as a reactive property.
 ```
 
 ## Use Case?
