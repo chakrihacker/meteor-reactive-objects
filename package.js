@@ -22,7 +22,6 @@ Package.on_use(function (api, where) {
 Package.on_test(function(api) {
 
   api.use('reactive-objects');
-  //api.use('test-helpers', 'server');
   api.use(['tinytest', 'deps'], ['client', 'server']);
 
   api.add_files([
