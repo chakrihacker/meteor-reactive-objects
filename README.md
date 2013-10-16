@@ -5,6 +5,14 @@ Objects with clean reactive properties, via ECMA-262 property get/set standards.
 
 Basically ReactiveObjects = Deps + ECMA-262 setProperty function
 
+# Don't fear the Deps
+Ok, thats a lie, you should respect deps because it is very powerful. 
+Before you use this package you should have a good understanding of Deps. 
+Read the docs at http://docs.meteor.com/#deps
+##### Also checkout Evented Mind's Deps videos by Chris Mather.
+Introducing Deps https://www.eventedmind.com/feed/sEwntmxWtAvjEeSSf <br>
+Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
+
 # Full Spec 'N Test
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
