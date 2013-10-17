@@ -63,13 +63,13 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
   
 ##### removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 
-  The property is **converted** back to a standard property with the current value. Returns the object.
+  The property is **converted** back to a standard property with the current value. 
 
   - Note: to completely remove a reactive property call this function and then run `delete object.property`  
   
 ##### removeObject(object)
   - Removes reactive properties form the object and returns the object. 
-  The properties are **converted** back to standard properties with their current values. Returns the object.
+  The properties are **converted** back to standard properties with their current values. 
 
   - Note: to completely remove the object just call `delete object`  
   
@@ -81,10 +81,10 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
 ##### getReactiveProperties(object)
   - Creates a *new* object with *only* the reactive properties. 
-  Nether this object nor its properties are not reactive. 
+  Nether this object nor its properties are reactive. 
   Calling this function will not trigger any Deps calls.
   Useful if you need to work with the values in a non-reactive state.
-  This lets packages like ReactiveSchema setup white-list.
+  This lets packages like ReactiveSchema setup white-lists.
   
 ## Use Case?
 ### ReactiveSchema
