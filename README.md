@@ -79,7 +79,7 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 ##### isReactiveObject(object)
   - Checks if the object has any reactive properties and returns boolean.
 
-##### getReactiveProperties(object)
+##### getObjectProperties(object)
   - Creates a *new* object with *only* the reactive properties. 
   Nether this object nor its properties are reactive. 
   Calling this function will not trigger any Deps calls.
