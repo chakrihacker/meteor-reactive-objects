@@ -26,6 +26,7 @@ Package.on_test(function(api) {
 
   api.add_files([
     'tests/public-api.tests.js',
+    'tests/mixin.tests.js',
     'tests/private-api.tests.js'], 
     ['client', 'server']);
 

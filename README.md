@@ -53,13 +53,15 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 * property: a string representation of the property key, ex. `object[keyName]`
 * Unless otherwise noted, the functions mutate the existing object rather then returning a new.
 
-##### setProperty(object, property)
+##### setProperty(object, property, mixin)
  - Adds a reactive property to the object and returns the object. 
-  Don't worry about overriding existing properties, defaults are preserved.
+ Don't worry about overriding existing properties, defaults are preserved.
   
-##### setProperties(object, [property])
-  - Adds a reactive properties to the object and returns the object. 
-  Don't worry about overriding existing properties, defaults are preserved.
+- mixin is an optional object for advanced usage. See the below mixin section for details.
+
+##### setProperties(object, [property], mixin)
+  - Runs setProperty for each property in the property array. 
+  The mixin is used for all the properties.
   
 ##### removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 
@@ -85,7 +87,33 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
   Calling this function will not trigger any Deps calls.
   Useful if you need to work with the values in a non-reactive state.
   This lets packages like ReactiveSchema setup white-lists.
-  
+
+### Mixin
+  You can use the mixin object to add functionality or change the default functionality of the setters and getters. 
+  It is fully optional and expects a `set` or `get` property that contains a function. No return value is expected.
+
+  ```javascript
+  mixin = {}
+  mixin.set: function () {
+    this.value 
+    //the value that would be set. You can change the value with this.value = 'some other value'
+    
+    this.stop 
+    //default set to false. If you do not want a setter on the property set this.stop = true
+
+    //run any other code here without having to set up a new Deps.autorun
+  } 
+  mixin.get: function () {
+    this.value
+    //the value that would be returned. You can change the value with this.value = 'some other value'
+    //Note: that this will not change the stored value, only the value the getter returns.
+
+    this.stop 
+    //default set to false. If you do not want a setter on the property set this.stop = true
+
+    //run any other code here without having to set up a new Deps.autorun
+  } 
+  ```
 ## Use Case?
 ### ReactiveSchema
 This project is intended to be a dependency of [ReactiveSchema](https://github.com/CMToups/meteor-reactive-schema)
