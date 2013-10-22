@@ -99,6 +99,9 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
     //the value that would be set. 
     //You can change the value with this.value = 'some other value'
     
+    this.oldValue 
+    //the value that would be replaced by the set.
+    
     this.stop 
     //default set to false. 
     //If you do not want a setter on the property set this.stop = true
