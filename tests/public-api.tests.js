@@ -24,7 +24,6 @@ Tinytest.add('ReactiveObjects - public api - setProperty rerun does not conflict
   test.equal(obj.secondProp, 'value3', 'should set the getter of the secondProp') //property getter
 });
 
-
 //setProperties
 Tinytest.add('ReactiveObjects - public api - setProperties creates setters and getters for properties on the object', function(test) {
   obj = ReactiveObjects.setProperties({}, ['Prop1', 'Prop2', 'Prop3'])
