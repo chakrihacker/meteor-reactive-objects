@@ -38,6 +38,19 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.set', function(te
   test.equal(obj.singleProp, 'new value', 'setter should have changed the value') 
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'new value', 'setter should have changed the value') 
+
+
+  //this.oldValue
+  var mixin = {}
+  var oldVal
+  mixin.set = function () { 
+    oldVal = this.oldValue
+  }
+  obj = ReactiveObjects.setProperty({singleProp: 'first'}, 'singleProp', mixin)
+  obj.singleProp = 'second' //property setter
+  test.equal(oldVal, 'first', 'setter offer the old value') 
+  obj.singleProp = 'third' //property setter
+  test.equal(oldVal, 'second', 'setter offer the old value') 
 });
 
 Tinytest.add('ReactiveObjects - public api - setProperty mixin.get', function(test) {
