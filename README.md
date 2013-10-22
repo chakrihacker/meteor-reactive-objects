@@ -94,7 +94,7 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
   ```javascript
   mixin = {}
-  mixin.set: function () {
+  mixin.set = function () {
     this.value 
     //the value that would be set. 
     //You can change the value with this.value = 'some other value'
@@ -108,7 +108,7 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
     //run any other code here without having to set up a new Deps.autorun
   } 
-  mixin.get: function () {
+  mixin.get = function () {
     this.value
     //the value that would be returned. 
     //You can change the value with this.value = 'some other value'
