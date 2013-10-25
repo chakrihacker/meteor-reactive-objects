@@ -15,7 +15,7 @@ This "automatically rerun[s] templates and other computations" (Meteor Docs) as 
 
 #### Install
 
-###### This is an [Atmosphere](https://atmosphere.meteor.com/) complient smart package for Meteorite (Meteor). 
+###### This is an [Atmosphere](https://atmosphere.meteor.com/) compliant smart package for Meteorite (Meteor). 
 Install with `mrt add reactive-objects`, this package is dependant only on core Meteor's Deps smart package.
 
 ## Simple Example
