@@ -116,7 +116,7 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
     this.stop 
     //default set to false. 
-    //If you do not want a setter on the property set this.stop = true
+    //If you do not want a getter on the property set this.stop = true
 
     //run any other code here without having to set up a new Deps.autorun
   } 
