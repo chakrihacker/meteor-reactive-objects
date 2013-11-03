@@ -120,6 +120,8 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
     //run any other code here without having to set up a new Deps.autorun
   } 
+  
+  //It is important to note there is currently a bug that prevents calling the getters and setter of other properties within mixins.
   ```
 ## Use Case?
 ### ReactiveSchema
