@@ -94,31 +94,6 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
   ```javascript
   mixin = {}
-<<<<<<< HEAD
-  mixin.set = function () {
-    this.value 
-    //the value that would be set. 
-    //You can change the value with this.value = 'some other value'
-    
-    this.oldValue 
-    //the value that would be replaced by the set.
-    
-    this.stop 
-    //default set to false. 
-    //If you do not want a setter on the property set this.stop = true
-
-    //run any other code here without having to set up a new Deps.autorun
-  } 
-  mixin.get = function () {
-    this.value
-    //the value that would be returned. 
-    //You can change the value with this.value = 'some other value'
-    //Note: that this will not change the stored value, only the value the getter returns.
-
-    this.stop 
-    //default set to false. 
-    //If you do not want a getter on the property set this.stop = true
-=======
   mixin.set: function (setter) {
     setter.value 
     //the value that would be set. You can change the value with getter.value = 'some other value'
@@ -135,7 +110,6 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
     getter.stop 
     //default set to false. If you do not want a setter on the property set getter.stop = true
->>>>>>> dev
 
     //run any other code here without having to set up a new Deps.autorun
   } 
