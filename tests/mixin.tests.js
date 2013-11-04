@@ -2,14 +2,14 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.set', function(te
 
   //call but do nothing
   var mixin = {}
-  mixin.set = function () { }
+  mixin.set = function (setter) { }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'setter still works') 
 
   //block the call
   var mixin = {}
-  mixin.set = function () { this.stop = true }
+  mixin.set = function (setter) { setter.stop = true }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   obj.singleProp = 'value' //property setter
   test.isFalse(obj.singleProp, 'setter should not work') 
@@ -31,8 +31,8 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.set', function(te
 
   //function changes input value
   var mixin = {}
-  mixin.set = function () { 
-    this.value = 'new value'
+  mixin.set = function (setter) { 
+    setter.value = 'new value'
   }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   test.equal(obj.singleProp, 'new value', 'setter should have changed the value') 
@@ -40,11 +40,11 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.set', function(te
   test.equal(obj.singleProp, 'new value', 'setter should have changed the value') 
 
 
-  //this.oldValue
+  //setter.oldValue
   var mixin = {}
   var oldVal
-  mixin.set = function () { 
-    oldVal = this.oldValue
+  mixin.set = function (setter) { 
+    oldVal = setter.oldValue
   }
   obj = ReactiveObjects.setProperty({singleProp: 'first'}, 'singleProp', mixin)
   obj.singleProp = 'second' //property setter
@@ -57,7 +57,7 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.get', function(te
 
   //call but do nothing
   var mixin = {}
-  mixin.get = function () { }
+  mixin.get = function (getter) { }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   obj.singleProp = 'value' //property setter
   var fake = obj.singleProp
@@ -65,7 +65,7 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.get', function(te
 
   //block the call
   var mixin = {}
-  mixin.get = function () { this.stop = true }
+  mixin.get = function (getter) { getter.stop = true }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   obj.singleProp = 'value' //property setter
   test.isFalse(obj.singleProp, 'getter should not work')
@@ -73,7 +73,7 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.get', function(te
   //function mixin
   var mixin = {}
   var testVar = false
-  mixin.get = function () { 
+  mixin.get = function (getter) { 
     testVar = true
   }
   test.isFalse(testVar, 'should not be set') 
@@ -84,8 +84,8 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin.get', function(te
 
   //function changes output
   var mixin = {}
-  mixin.get = function () { 
-    this.value = 'new value'
+  mixin.get = function (getter) { 
+    getter.value = 'new value'
   }
   obj = ReactiveObjects.setProperty({singleProp: undefined}, 'singleProp', mixin)
   test.equal(obj.singleProp, 'new value', 'should return the override value') 
@@ -98,16 +98,16 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin both', function(t
 
   //call but do nothing
   var mixin = {}
-  mixin.set = function () { }
-  mixin.get = function () { }
+  mixin.set = function (getter) { }
+  mixin.get = function (getter) { }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'property still works') 
 
   //block the call (redundant test)
   var mixin = {}
-  mixin.set = function () { this.stop = true }
-  mixin.get = function () { this.stop = true }
+  mixin.set = function (getter) { getter.stop = true }
+  mixin.get = function (getter) { getter.stop = true }
   obj = ReactiveObjects.setProperty({singleProp: 'value'}, 'singleProp', mixin)
   obj.singleProp = 'value'
   test.isFalse(obj.singleProp, 'property should not function') 
@@ -116,10 +116,10 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin both', function(t
   var mixin = {}
   var testSet = false
   var testGet = false
-  mixin.set = function () { 
+  mixin.set = function (getter) { 
     testSet = true
   }
-  mixin.get = function () { 
+  mixin.get = function (getter) { 
     testGet = true
   }
   test.isFalse(testSet, 'should not be set') 
@@ -140,8 +140,8 @@ Tinytest.add('ReactiveObjects - public api - setProperty mixin both', function(t
 
   //function changes input value
   var mixin = {}
-  mixin.set = function () { 
-    this.value = 'new value'
+  mixin.set = function (getter) { 
+    getter.value = 'new value'
   }
   obj = ReactiveObjects.setProperty({}, 'singleProp', mixin)
   test.equal(obj.singleProp, 'new value', 'setter should have changed the value') 
