@@ -150,8 +150,7 @@ reactiveObject.otherReativeProp = 42
 ## Changed log
 * 0.6.0 Breaking change for mixin api. Moved `this` context to be the first attribute.
 
-## Full Spec 'N Test
-Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
+## Full Spec 'N Test [![Build Status](https://travis-ci.org/Meteor-Reaction/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
 
 To see the test run `mrt test-packages <path to package>`. 
 These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
