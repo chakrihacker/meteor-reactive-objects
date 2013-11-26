@@ -163,7 +163,7 @@ Tinytest.add('ReactiveObjects - public api - test .', function(test) {
 
   var x = 0;
   var handle = Deps.autorun(function (handle) {
-    var arg = obj.notReactiveProp 
+    var arg = obj.Prop 
     ++x;
   });
 
@@ -172,7 +172,7 @@ Tinytest.add('ReactiveObjects - public api - test .', function(test) {
   obj.Prop.push(1)
   Deps.flush();
   test.equal(x, 2);
-  test.equals(obj.prop, [1])
+  test.equals(obj.Prop, [1])
 
   handle.stop();
 
