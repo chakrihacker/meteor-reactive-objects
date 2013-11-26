@@ -94,22 +94,22 @@ Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
 
   ```javascript
   mixin = {}
-  mixin.set: function () {
-    this.value 
-    //the value that would be set. You can change the value with this.value = 'some other value'
+  mixin.set: function (setter) {
+    setter.value 
+    //the value that would be set. You can change the value with getter.value = 'some other value'
     
-    this.stop 
-    //default set to false. If you do not want a setter on the property set this.stop = true
+    setter.stop 
+    //default set to false. If you do not want a setter on the property set getter.stop = true
 
     //run any other code here without having to set up a new Deps.autorun
   } 
-  mixin.get: function () {
-    this.value
-    //the value that would be returned. You can change the value with this.value = 'some other value'
+  mixin.get: function (getter) {
+    getter.value
+    //the value that would be returned. You can change the value with getter.value = 'some other value'
     //Note: that this will not change the stored value, only the value the getter returns.
 
-    this.stop 
-    //default set to false. If you do not want a setter on the property set this.stop = true
+    getter.stop 
+    //default set to false. If you do not want a setter on the property set getter.stop = true
 
     //run any other code here without having to set up a new Deps.autorun
   } 
@@ -144,6 +144,9 @@ reactiveObject.otherReativeProp = 42
   {{otherReativeProp}} <!-- 42 -->
 {{/with}}
 ```
+
+## Changed log
+* 0.6.0 Breaking change for mixin api. Moved `this` context to be the first attribute.
 
 ## Full Spec 'N Test
 Travis-ci is currently not able to test Meteor but here is the anyway (it returns passing falsely) [![Build Status](https://travis-ci.org/CMToups/meteor-reactive-objects.png)](https://travis-ci.org/CMToups/meteor-reactive-objects) 
