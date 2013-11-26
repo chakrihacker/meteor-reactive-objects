@@ -154,7 +154,7 @@ Tinytest.add('ReactiveObjects - public api - getObjectProperties returns an obje
 });
 
 //array test
-Tinytest.add('ReactiveObjects - public api - test .', function(test) {
+Tinytest.add('ReactiveObjects - public api - test object with array property', function(test) {
   
   //object with an array property
   obj = {Prop: []}
