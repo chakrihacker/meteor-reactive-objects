@@ -179,3 +179,28 @@ Tinytest.add('ReactiveObjects - public api - test object with array property', f
 
 });
 
+//nested objects test
+Tinytest.add('ReactiveObjects - public api - test object with nested object property', function(test) {
+  
+  //object with an array property
+  obj = {Prop: {}}
+
+  ReactiveObjects.setProperty(obj, 'Prop')
+
+  var x = 0;
+  var handle = Deps.autorun(function (handle) {
+    var arg = obj.Prop 
+    ++x;
+  });
+
+  test.equal(x, 1);
+
+  obj.Prop.foo = 'bar'
+  Deps.flush();
+  test.equal(x, 2);
+  test.equal(obj.Prop.foo, 'bar')
+
+  handle.stop();
+
+
+});
