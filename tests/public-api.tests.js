@@ -172,7 +172,7 @@ Tinytest.add('ReactiveObjects - public api - test .', function(test) {
   obj.Prop.push(1)
   Deps.flush();
   test.equal(x, 2);
-  test.equals(obj.Prop, [1])
+  test.equal(obj.Prop, [1])
 
   handle.stop();
 
