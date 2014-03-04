@@ -63,12 +63,7 @@ Tinytest.add('ReactiveObjects - public api - removeProperty transforms property 
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
   test.isFalse(obj._reactiveDeps.hasOwnProperty('PropDeps'), 'should not have deps') 
-  test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
-
-  //sanity test
-  obj = {notReactiveProp: 'sanity'}
-  ReactiveObjects.removeProperty(obj, 'Prop')
-  test.equal(obj, obj, 'should not pollute objects') 
+  test.isFalse(obj._observers.hasOwnProperty('PropObserver'), 'should not have a hidden property')
 });
 
 //remove object
@@ -78,9 +73,9 @@ Tinytest.add('ReactiveObjects - public api - removeObject transforms property in
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeObject(obj)
   
-  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted  
+  test.equal(obj.Prop, 'value', 'should call the property') //persisted  
 
-  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
+  test.isFalse(obj._observers, 'should not have an observer')
   test.isFalse(obj._reactiveDeps, 'should not have any deps')
 
 
@@ -93,13 +88,8 @@ Tinytest.add('ReactiveObjects - public api - removeObject transforms property in
   test.equal(obj.Prop1, 'value1', 'should call the non reactive property') //persisted
   test.equal(obj.Prop2, 'value2', 'should call the non reactive property') //persisted
 
-  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
+  test.isFalse(obj._observers, 'should not have any an observers')
   test.isFalse(obj._reactiveDeps, 'should not have any deps')
-
-  //sanity test
-  obj = {notReactiveProp: 'sanity'}
-  ReactiveObjects.removeObject(obj)
-  test.equal(obj, obj, 'should not pollute objects') 
 });
 
 //is reactive property
@@ -137,7 +127,7 @@ Tinytest.add('ReactiveObjects - public api - isReactiveObject returns true if ob
 });
 
 //get all reactive properties
-Tinytest.add('ReactiveObjects - public api - getObjectProperties returns an object with all the reactive properties.', function(test) {
+Tinytest.add('ReactiveObjects - public api - getObjectProperties returns an object with all the observed properties.', function(test) {
   
   //normal object
   obj = {Prop: 'value'}
