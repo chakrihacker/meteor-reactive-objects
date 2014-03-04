@@ -55,6 +55,28 @@ Tinytest.add('ReactiveObjects - public api - property not white-listed persists 
     handle.stop();
 });
 
+//reactive property
+Tinytest.add('ReactiveObjects - public api - observed property should be reactive', function(test) {
+
+  //non reactive prop
+  obj = {}
+  ReactiveObjects.setProperty(obj, 'Prop')
+  obj.Prop = 'value'
+  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
+
+    var x = 0;
+    var handle = Deps.autorun(function (handle) {
+      var arg = obj.depend('Prop');
+      obj._reactiveDeps.PropDeps.depend();
+      ++x;
+    });
+
+    test.equal(x, 1);
+    obj.Prop = 'foo'
+    Deps.flush();
+    test.equal(x, 2);
+    handle.stop();
+});
 
 //remove property
 Tinytest.add('ReactiveObjects - public api - removeProperty transforms property into a non reactive property', function(test) {
@@ -150,15 +172,13 @@ Tinytest.add('ReactiveObjects - public api - test object with array property', f
   obj = {Prop: []}
 
   ReactiveObjects.setProperty(obj, 'Prop')
-
   var x = 0;
   var handle = Deps.autorun(function (handle) {
-    var arg = obj.Prop 
+    var arg = obj.depend('Prop') 
     ++x;
   });
 
   test.equal(x, 1);
-
   obj.Prop.push(1)
   Deps.flush();
   test.equal(x, 2);
