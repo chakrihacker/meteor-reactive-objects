@@ -23,27 +23,27 @@ Install with `mrt add reactive-objects`, this package is dependant only on core 
 
 var reactiveObject = {
   normalProp: 'someObjectProp',
-  reativeProp: 'value'
+  reactiveProp: 'value'
 }
 
-ReactiveObjects.setProperties(reactiveObject, ['reativeProp', 'otherReativeProp'])
+ReactiveObjects.setProperties(reactiveObject, ['reactiveProp', 'otherReactiveProp'])
 
 //Now for a look at the objects state!
 reactiveObject.normalProp
   => 'someObjectProp' //not a reactive property but it was preserved. 
-reactiveObject.reativeProp
+reactiveObject.reactiveProp
   => 'value' //this is now a reactive property.
-reactiveObject.otherReativeProp
+reactiveObject.otherReactiveProp
   => undefined //this now exists as a reactive property.
 ```
 
 ## Don't fear the Deps
-Ok, thats a lie, you should respect Deps because it is very powerful. 
+Ok, that's a lie, you should respect `Deps` because it is very powerful. 
 Before you use this package you should have a good understanding of Deps. 
-Read the docs at http://docs.meteor.com/#deps
-##### Also checkout EventedMind's Deps videos by Chris Mather.
-Introducing Deps https://www.eventedmind.com/feed/sEwntmxWtAvjEeSSf <br>
-Build A Reactive Data Source https://www.eventedmind.com/feed/vhdWPskmLjNDoqjYd
+Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps videos by Chris Mather:
+
+* [Introducing Deps](https://www.eventedmind.com/feed/meteor-introducing-deps)
+* [Build A Reactive Data Source](https://www.eventedmind.com/feed/meteor-build-a-simple-reactive-data-source)
 
 ## API
 
@@ -128,22 +128,22 @@ This project is intended to be a dependency of [ReactiveSchema](https://github.c
 <!-- Lets assume: Template.example.reactiveObject = reactiveObject -->
 {{#with ReactiveObject}}
   {{normalProp}} <!-- someObjectProp -->
-  {{reativeProp}} <!-- value -->
-  {{otherReativeProp}} <!-- -->
+  {{reactiveProp}} <!-- value -->
+  {{otherReactiveProp}} <!-- -->
 {{/with}}
 
 ```
 #### Lets change things up
 ```javascript
 reactiveObject.normalProp = "not going to react"
-reactiveObject.reativeProp = "Something Awesome!"
-reactiveObject.otherReativeProp = 42
+reactiveObject.reactiveProp = "Something Awesome!"
+reactiveObject.otherReactiveProp = 42
 ```
 ```html
 {{#with ReactiveObject}}
   {{normalProp}} <!-- someObjectProp -->
-  {{reativeProp}} <!-- Something Awesome! -->
-  {{otherReativeProp}} <!-- 42 -->
+  {{reactiveProp}} <!-- Something Awesome! -->
+  {{otherReactiveProp}} <!-- 42 -->
 {{/with}}
 ```
 
