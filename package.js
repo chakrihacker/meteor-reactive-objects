@@ -4,10 +4,10 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   
-  api.use(['deps'], ['client', 'server']);
+  api.use(['deps', 'behave'], ['client', 'server']);
 
   if(api.export) {
-    api.export('ReactiveObjects', ['client', 'server']);
+    //api.export('ReactiveObjects', ['client', 'server']);
   }
   
   api.add_files([
@@ -22,12 +22,8 @@ Package.on_use(function (api, where) {
 Package.on_test(function(api) {
 
   api.use('reactive-objects');
-  api.use(['tinytest', 'deps'], ['client', 'server']);
+  api.use(['tinytest', 'deps', 'behave'], ['client', 'server']);
 
-  api.add_files([
-    'tests/public-api.tests.js',
-    'tests/mixin.tests.js',
-    'tests/private-api.tests.js'], 
-    ['client', 'server']);
+  api.add_files(['tests/public-api.tests.js'], ['client', 'server']);
 
 });
