@@ -11,12 +11,10 @@ Package.on_use(function (api, where) {
   }
   
   api.add_files([
-    'lib/ReactiveObjects.js',
-    'lib/removes.js',
-    'lib/isa.js',
-    'lib/transforms.js'],
-    ['client', 'server']);
-
+    'lib/reactive-objects.js',
+    'lib/model-methods.js'
+  ],
+  ['client', 'server']);
 });
 
 Package.on_test(function(api) {
