@@ -1,13 +1,11 @@
 var ReactiveObjects = Behave.create({ReactiveObject: {}})
 
-//setProperty
 Tinytest.add('ReactiveObjects - new - creates setter and getter for the properties on the object', function(test) {
   obj = ReactiveObjects.new({'singleProp': ''})
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'sets the getter') //property getter
 });
 
-//setProperty rerun
 Tinytest.add('ReactiveObjects - addProperty - adds a new property to existing object.', function(test) {
   obj = ReactiveObjects.new({'singleProp': {}})
   obj.singleProp = 'value' //property setter
@@ -24,10 +22,8 @@ Tinytest.add('ReactiveObjects - addProperty - adds a new property to existing ob
   test.equal(obj.secondProp, 'value3', 'should set the getter of the secondProp') //property getter
 });
 
-//reactive property
-Tinytest.add('ReactiveObjects - getter - calls deps', function(test) {
+Tinytest.add('ReactiveObjects - getter/setter - object property is reactive', function(test) {
 
-  //non reactive prop
   obj = ReactiveObjects.new({'reactiveProp':{}})
 
   Deps.autorun(function (c) {
@@ -43,11 +39,8 @@ Tinytest.add('ReactiveObjects - getter - calls deps', function(test) {
 
 });
 
-
-//non reactive property
 Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive value', function(test) {
 
-  //non reactive prop
   obj = ReactiveObjects.new({'someOtherProp':{}})
   obj.notReactiveProp = 'value'
   test.equal(obj.notReactiveProp, 'value', 'should call the non reactive property') //persisted
@@ -114,57 +107,3 @@ Tinytest.add('ReactiveObjects - isReactiveObject -  identifies reactive objects'
   test.isTrue(ReactiveObjects.isReactiveObject(obj), 'should return true with reactive property') 
 
 });
-
-/*
-//array test
-Tinytest.addAsync('ReactiveObjects - dynamic type change - change property type from array to default', function(test, completed) {
-  //object with an array property
-  var obj = ReactiveObjects.new({Prop: { value: ['ff']}})
-
-  Deps.autorun(function (c) {
-    var arg = obj.Prop 
-    if (!c.firstRun) {
-      c.stop();
-      completed();
-    }
-  });
-
-  obj.Prop = 'foo';
-});
-
-Tinytest.addAsync('ReactiveObjects - array interface - push to reactive array', function(test, completed) {
-  //object with an array property
-  var obj = ReactiveObjects.new({Prop: ['ff']})
-  obj.ReactiveSettings.Prop.type = 'array'
-
-  Deps.autorun(function (c) {
-    var arg = obj.Prop 
-    if (!c.firstRun) {
-      test.equal(obj.Prop[0], 1, 'should be equal');
-      completed();
-      c.stop();
-    }
-  });
-  
-  obj.Prop.push(1);
-});
-
-//nested objects test
-Tinytest.add('ReactiveObjects - nested object interface - test object with nested object property', function(test) {
-  
-  //object with an array property
-  var obj = ReactiveObjects.new({Prop: { sub: undefined}})
-
-  Deps.autorun(function (c) {
-    var arg = obj.Prop.sub 
-    if (!c.firstRun) {
-      completed();
-      c.stop();
-    }
-  });
-  
-  obj.Prop.sub = 'foo'
-
-
-});
-*/
