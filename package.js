@@ -4,30 +4,28 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   
-  api.use(['deps'], ['client', 'server']);
+  api.use(['deps', 'underscore', 'behave'], ['client', 'server']);
 
   if(api.export) {
-    api.export('ReactiveObjects', ['client', 'server']);
+    //api.export('ReactiveObjects', ['client', 'server']);
   }
   
   api.add_files([
-    'lib/ReactiveObjects.js',
-    'lib/removes.js',
-    'lib/isa.js',
-    'lib/transforms.js'],
-    ['client', 'server']);
-
+    'lib/reactive-objects.js',
+    'lib/model-methods.js',
+    'lib/proxies.js'
+  ],
+  ['client', 'server']);
 });
 
 Package.on_test(function(api) {
 
   api.use('reactive-objects');
-  api.use(['tinytest', 'deps'], ['client', 'server']);
+  api.use(['tinytest', 'deps', 'underscore', 'behave'], ['client', 'server']);
 
   api.add_files([
     'tests/public-api.tests.js',
-    'tests/mixin.tests.js',
-    'tests/private-api.tests.js'], 
-    ['client', 'server']);
+    'tests/proxies.tests.js'
+    ], ['client', 'server']);
 
 });

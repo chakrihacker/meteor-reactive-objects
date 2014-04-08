@@ -1,115 +1,92 @@
-//setProperty
-Tinytest.add('ReactiveObjects - public api - setProperty creates setter and getter for a property on the object', function(test) {
-  obj = ReactiveObjects.setProperty({}, 'singleProp')
+var ReactiveObjects = Behave.create({ReactiveObject: {}})
+
+Tinytest.add('ReactiveObjects - new - creates setter and getter for the properties on the object', function(test) {
+  obj = ReactiveObjects.new({'singleProp': ''})
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'sets the getter') //property getter
 });
 
-//setProperty rerun
-Tinytest.add('ReactiveObjects - public api - setProperty rerun does not conflict with old runs.', function(test) {
-  obj = ReactiveObjects.setProperty({}, 'singleProp')
+Tinytest.add('ReactiveObjects - addProperty - adds a new property to existing object.', function(test) {
+  obj = ReactiveObjects.new({'singleProp': {}})
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'should set the getter of the singleProp') //property getter
 
   //add additional props
-  ReactiveObjects.setProperty(obj, 'secondProp') //Also test if old object can still be used, the return should not be meaningful.
+  obj.ReactiveFunctions.addProperty('secondProp', {}) //Also test if old object can still be used, the return should not be meaningful.
   obj.secondProp = 'value2' //property setter
   test.equal(obj.singleProp, 'value', 'should set the getter of the singleProp') //property getter
   test.equal(obj.secondProp, 'value2', 'should set the getter of the secondProp') //property getter
 
-  //allow for graceful redefine of existing property - exact method should be tested in private api tests
-  ReactiveObjects.setProperty(obj, 'singleProp') 
-  test.equal(obj.singleProp, 'value', 'should set the getter of the singleProp') //get old value
+  obj.ReactiveFunctions.addProperty('singleProp', {}) 
   obj.secondProp = 'value3' //property setter
   test.equal(obj.secondProp, 'value3', 'should set the getter of the secondProp') //property getter
 });
 
-//setProperties
-Tinytest.add('ReactiveObjects - public api - setProperties creates setters and getters for properties on the object', function(test) {
-  obj = ReactiveObjects.setProperties({}, ['Prop1', 'Prop2', 'Prop3'])
-  obj.Prop1 = 'value1' //property setter
-  obj.Prop2 = 'value2' //property setter
-  obj.Prop3 = 'value3' //property setter
-  test.equal(obj.Prop1, 'value1','should set the getter') //property getter
-  test.equal(obj.Prop2, 'value2','should set the getter') //property getter
-  test.equal(obj.Prop3, 'value3','should set the getter') //property getter
+Tinytest.add('ReactiveObjects - getter/setter - object property is reactive', function(test) {
+
+  obj = ReactiveObjects.new({'reactiveProp':{}})
+
+  Deps.autorun(function (c) {
+    var arg = obj.reactiveProp 
+    if (!c.firstRun) {
+      completed();
+      c.stop();
+    }
+  });
+  
+  obj.reactiveProp = 'foo'
+  test.equal(obj.reactiveProp, 'foo', 'should call the non reactive property') //persisted
+
 });
 
-//non reactive property
-Tinytest.add('ReactiveObjects - public api - property not white-listed persists and should not be reactive', function(test) {
+Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive value', function(test) {
 
-  //non reactive prop
-  obj = {notReactiveProp: 'value'}
-  ReactiveObjects.setProperty(obj, 'someOtherProp')
+  obj = ReactiveObjects.new({'someOtherProp':{}})
+  obj.notReactiveProp = 'value'
   test.equal(obj.notReactiveProp, 'value', 'should call the non reactive property') //persisted
 
-    var x = 0;
-    var handle = Deps.autorun(function (handle) {
-      var arg = obj.notReactiveProp 
-      ++x;
-    });
-    test.equal(x, 1);
-    obj.notReactiveProp = 'foo'
-    Deps.flush();
-    test.equal(x, 1);
-    handle.stop();
+  Deps.autorun(function (c) {
+    var arg = obj.notReactiveProp 
+    if (!c.firstRun) {
+      test.fail();
+      c.stop();
+    }
+  });
+  
+  obj.notReactiveProp = 'foo'
+  test.equal(obj.notReactiveProp, 'foo', 'should call the non reactive property') //persisted
+
 });
 
 
 //remove property
-Tinytest.add('ReactiveObjects - public api - removeProperty transforms property into a non reactive property', function(test) {
-  obj = ReactiveObjects.setProperty({basic:undefined}, 'Prop')
+Tinytest.add('ReactiveObjects - removeProperty - transforms property into a non reactive property', function(test) {
+  var obj = ReactiveObjects.new({'Prop':{}})
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
-  test.isFalse(obj._reactiveDeps.hasOwnProperty('PropDeps'), 'should not have deps') 
-  test.isFalse(obj._reactiveProperties.hasOwnProperty('Prop'), 'should not have a hidden property')
-
-  //sanity test
-  obj = {notReactiveProp: 'sanity'}
-  ReactiveObjects.removeProperty(obj, 'Prop')
-  test.equal(obj, obj, 'should not pollute objects') 
+  test.isFalse(obj.ReactiveSettings.hasOwnProperty('Prop'), 'object should not have reactive settings for removed property') 
 });
 
 //remove object
-Tinytest.add('ReactiveObjects - public api - removeObject transforms property into a non reactive property', function(test) {
-  //single prop
-  obj = ReactiveObjects.setProperty({basic:undefined}, 'Prop')
+Tinytest.add('ReactiveObjects - removeObject - transforms object into a non reactive object', function(test) {
+
+  obj = ReactiveObjects.new({basic:undefined, 'Prop':{}})
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeObject(obj)
-  
-  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted  
-
-  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
-  test.isFalse(obj._reactiveDeps, 'should not have any deps')
-
-
-  //multi prop
-  obj = ReactiveObjects.setProperties({basic:undefined}, ['Prop1','Prop2'])
-  obj.Prop1 = 'value1' //property setter
-  obj.Prop2 = 'value2' //property setter
-  ReactiveObjects.removeObject(obj)
-
-  test.equal(obj.Prop1, 'value1', 'should call the non reactive property') //persisted
-  test.equal(obj.Prop2, 'value2', 'should call the non reactive property') //persisted
-
-  test.isFalse(obj._reactiveProperties, 'should not have any hidden property')
-  test.isFalse(obj._reactiveDeps, 'should not have any deps')
-
-  //sanity test
-  obj = {notReactiveProp: 'sanity'}
-  ReactiveObjects.removeObject(obj)
-  test.equal(obj, obj, 'should not pollute objects') 
+  test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
+  test.isFalse(obj.hasOwnProperty('ReactiveSettings'), 'should not have settings') 
+  test.isFalse(obj.hasOwnProperty('ReactiveFunctions'), 'should not have reactive functions') 
 });
 
 //is reactive property
-Tinytest.add('ReactiveObjects - public api - isReactiveProperty identifies reactive properties', function(test) {
+Tinytest.add('ReactiveObjects - isReactiveProperty -  identifies reactive properties', function(test) {
   
   //normal object
   obj = {Prop: 'value'}
   test.isFalse(ReactiveObjects.isReactiveProperty(obj, 'Prop'), 'should return false with normal object') 
 
-  obj = ReactiveObjects.setProperty({}, 'Prop')
+  obj = ReactiveObjects.new({'Prop':undefined})
   //without value
   test.isTrue(ReactiveObjects.isReactiveProperty(obj, 'Prop'), 'should return true with reactive prop w/o value') 
 
@@ -119,37 +96,14 @@ Tinytest.add('ReactiveObjects - public api - isReactiveProperty identifies react
 
 });
 
-//is reactive object
-Tinytest.add('ReactiveObjects - public api - isReactiveObject returns true if object has reactive properties', function(test) {
+//is reactive property
+Tinytest.add('ReactiveObjects - isReactiveObject -  identifies reactive objects', function(test) {
   
   //normal object
   obj = {Prop: 'value'}
   test.isFalse(ReactiveObjects.isReactiveObject(obj), 'should return false with normal object') 
 
-  obj = ReactiveObjects.setProperty({}, 'Prop')
-  //without value
-  test.isTrue(ReactiveObjects.isReactiveObject(obj), 'should return true with reactive prop w/o value') 
-
-  //with value
-  obj.Prop = 'value'
-  test.isTrue(ReactiveObjects.isReactiveObject(obj), 'should return true with reactive prop w/ value') 
+  obj = ReactiveObjects.new({'Prop':undefined})
+  test.isTrue(ReactiveObjects.isReactiveObject(obj), 'should return true with reactive property') 
 
 });
-
-//get all reactive properties
-Tinytest.add('ReactiveObjects - public api - getObjectProperties returns an object with all the reactive properties.', function(test) {
-  
-  //normal object
-  obj = {Prop: 'value'}
-  test.equal(ReactiveObjects.getObjectProperties(obj), {}, 'should return an empty object') 
-
-  obj = ReactiveObjects.setProperty({}, 'Prop')
-  //without value
-  test.equal(ReactiveObjects.getObjectProperties(obj), {Prop: undefined}, 'should return an object with a property, even if its undefined')
-
-  //with value
-  obj.Prop = 'value'
-  test.equal(ReactiveObjects.getObjectProperties(obj), {Prop: 'value'}, 'should return an object with a property')
-
-});
-
