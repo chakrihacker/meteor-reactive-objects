@@ -18,8 +18,10 @@ This "automatically rerun[s] templates and other computations" (Meteor Docs) as 
 
 #### Install
 
-###### This is an [Atmosphere](https://atmosphere.meteor.com/) compliant smart package for Meteorite (Meteor). 
+###### This is an [Atmosphere](https://atmospherejs.com/) compliant smart package for Meteorite (Meteor). 
 Install with `mrt add reactive-objects`, this package is dependent only on core Meteor's Deps smart package.
+
+This package is a [Behave](https://atmospherejs.com/package/behave) `behavior` and will require you add Behave to your app!
 
 ## Simple Example
 ```js
@@ -51,13 +53,8 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
 
 ##### Terms & Concepts
 
-* object: It can be {}, an object with existing properties, coffeescript class @, or even a collection transformation.
-* property: a string representation of the property key, ex. `object[keyName]`
-* Unless otherwise noted, the functions mutate the existing object rather then returning a new.
-
-##### instance.addProperty(name, value)
- - Adds a reactive property to the object and returns the object. 
- Don't worry about overriding existing properties, defaults are preserved.
+* model: Is the result of `Behave.create({ReactiveObject: {}})`.
+* instance: Is the result of `model.new({})`.
   
 ##### model.removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 
@@ -76,13 +73,26 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
    
 ##### model.isReactiveObject(object)
   - Checks if the object has any reactive properties and returns boolean.
+   
+##### instance.ReactiveFunctions.addProperty(name, value)
+ - Adds a reactive property to the object and returns the object. 
+ Don't worry about overriding existing properties, defaults are preserved.
 
+##### instance.ReactiveSettings
+ This object holds all of your objects reactive properties state data. It contains myProperty `value`, `type`, `deps`
+ - `value` is the un-mutated value of the property
+ - `type` is what proxy will be used to interface with the property
+ - `deps` is the deps handle for the property.
 
+## Proxies
+ - `default` Any genaric property that calls deps `changed()` on `set` and deps `depend()` on `get`
+ - `array` An array proxy that wraps array functions with deps calls.
+ 
+## Behave model settings
+ - `dynamicProxies` is a boolean that enables type detection. Currently this just checks to see if the value you added is an array or not. If it is an array it sets `instance.ReactiveSettings.myArray.type = 'array'`. This property will now call on the array proxy. If you want manually control property proxy type then set this to false.
+ - `proxies` This should be an array of proxies you wish to add.
+ 
 ## Use Case?
-### ReactiveSchema
-This project is intended to be a dependency of [ReactiveSchema](https://github.com/CMToups/meteor-reactive-schema)
-
-### Handlebars!
 
 #### The most obvious usage is reactive templates
 
@@ -108,9 +118,6 @@ reactiveObject.otherReactiveProp = 42
   {{otherReactiveProp}} <!-- 42 -->
 {{/with}}
 ```
-
-## Changed log
-* 0.6.0 Breaking change for mixin api. Moved `this` context to be the first attribute.
 
 ## Full Spec 'N Test [![Build Status](https://travis-ci.org/Meteor-Reaction/meteor-reactive-objects.png)](https://travis-ci.org/Meteor-Reaction/meteor-reactive-objects) 
 
