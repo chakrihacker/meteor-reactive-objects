@@ -38,7 +38,7 @@ reactiveObject.normalProp = 'some string'
 //You can always add more reactive properties
 reactiveObject.ReactiveFunctions.addProperty('otherReactiveProp','bar')
 => 'bar' //this now exists as a reactive property.
-
+```
 ## Don't fear the Deps
 Ok, that's a lie, you should respect `Deps` because it is very powerful. 
 Before you use this package you should have a good understanding of Deps. 
