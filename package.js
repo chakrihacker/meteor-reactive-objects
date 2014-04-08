@@ -12,7 +12,8 @@ Package.on_use(function (api, where) {
   
   api.add_files([
     'lib/reactive-objects.js',
-    'lib/model-methods.js'
+    'lib/model-methods.js',
+    'lib/proxies.js'
   ],
   ['client', 'server']);
 });

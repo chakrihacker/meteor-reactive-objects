@@ -68,11 +68,11 @@ Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive va
 
 //remove property
 Tinytest.add('ReactiveObjects - removeProperty - transforms property into a non reactive property', function(test) {
-  obj = ReactiveObjects.new({'Prop':''})
+  var obj = ReactiveObjects.new({'Prop':{}})
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
-  test.isFalse(obj.ReactiveSettings.hasOwnProperty('Prop'), 'object should not have any reactive settings') 
+  test.isFalse(obj.ReactiveSettings.hasOwnProperty('Prop'), 'object should not have reactive settings for removed property') 
 });
 
 //remove object
