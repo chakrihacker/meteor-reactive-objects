@@ -80,17 +80,24 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
 
 ##### instance.ReactiveSettings
  This object holds all of your objects reactive properties state data. It contains myProperty `value`, `type`, `deps`
- - `value` is the un-mutated value of the property
+ - `value` is the un-mutated value of the property. If you need to work with the value of the properly in a non-reactive way use this via `instance.ReactiveSettings.myProperty.value`
  - `type` is what proxy will be used to interface with the property
  - `deps` is the deps handle for the property.
 
 ## Proxies
+  ReactiveObjects does its best not to mutate any values you pass into it. Unfortunately their is no universal way to observe objects changes without overriding its prototype or using wrappers. Proxies are wrappers around existing objects like arrays. To create you own proxies see Behave model settings.   
  - `default` Any genaric property that calls deps `changed()` on `set` and deps `depend()` on `get`
  - `array` An array proxy that wraps array functions with deps calls.
  
 ## Behave model settings
+  ```js 
+    Behave.create({ReactiveObject: {
+      dynamicProxies: true //default
+      proxies: {}
+    }}) 
+  ```
  - `dynamicProxies` is a boolean that enables type detection. Currently this just checks to see if the value you added is an array or not. If it is an array it sets `instance.ReactiveSettings.myArray.type = 'array'`. This property will now call on the array proxy. If you want manually control property proxy type then set this to false.
- - `proxies` This should be an array of proxies you wish to add.
+ - `proxies` This should any proxies you wish to add. See `lib/proxies.js` for examples
  
 ## Use Case?
 
