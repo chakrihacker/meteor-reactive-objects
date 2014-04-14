@@ -1,30 +1,28 @@
-var ReactiveObjects = Behave.create({ ReactiveObject: {dynamicProxies: false }})
-
-var dynamicReactiveObjects = Behave.create({ ReactiveObject: {dynamicProxies: true }})
-
 Tinytest.add('ReactiveObjects - Default Proxy - new property is `default` type by default', function(test) {
-  var obj = ReactiveObjects.new({'singleProp': ''})
+  var obj = new ReactiveObjects({'singleProp': ''})
   test.equal(obj.ReactiveSettings.singleProp.type, 'default');
 });
 
-Tinytest.add('ReactiveObjects - Default Proxy - with dynamicProxies `true` default is `default` type', function(test) {
-  var dobj = dynamicReactiveObjects.new({'singleProp': ''})
+Tinytest.add('ReactiveObjects - Default Proxy - with disableDynamicProxies `false` default is `default` type', function(test) {
+  var dobj = new ReactiveObjects({'singleProp': ''})
   test.equal(dobj.ReactiveSettings.singleProp.type, 'default');
 });
 
-Tinytest.add('ReactiveObjects - Array Proxy - with dynamicProxies `false` array is `default` type', function(test) {
-  var obj = ReactiveObjects.new({'singleProp': []})
+Tinytest.add('ReactiveObjects - Array Proxy - with disableDynamicProxies `true` array is `default` type', function(test) {
+  ReactiveObjects.disableDynamicProxies = true;
+  var obj = new ReactiveObjects({'singleProp': []})
   test.equal(obj.ReactiveSettings.singleProp.type, 'default');
 });
 
-Tinytest.add('ReactiveObjects - Array Proxy - with dynamicProxies `true` array is `array` type', function(test) {
-  var dobj = dynamicReactiveObjects.new({'singleProp': []})
+Tinytest.add('ReactiveObjects - Array Proxy - with disableDynamicProxies `false` array is `array` type', function(test) {
+  ReactiveObjects.disableDynamicProxies = false;
+  var dobj = new ReactiveObjects({'singleProp': []})
   test.equal(dobj.ReactiveSettings.singleProp.type, 'array');
 });
 
 Tinytest.add('ReactiveObjects - Array Proxy - array property is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':[]})
+  obj = new ReactiveObjects({'reactiveArray':[]})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -40,7 +38,7 @@ Tinytest.add('ReactiveObjects - Array Proxy - array property is reactive', funct
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `push` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':[]})
+  obj = new ReactiveObjects({'reactiveArray':[]})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -57,7 +55,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `push` function is reacti
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `pop` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a', 'b']})
+  obj = new ReactiveObjects({'reactiveArray':['a', 'b']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -74,7 +72,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `pop` function is reactiv
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `reverse` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a', 'b']})
+  obj = new ReactiveObjects({'reactiveArray':['a', 'b']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -91,7 +89,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `reverse` function is rea
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `shift` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a','b']})
+  obj = new ReactiveObjects({'reactiveArray':['a','b']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -108,7 +106,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `shift` function is react
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `sort` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a', 'c', 'b']})
+  obj = new ReactiveObjects({'reactiveArray':['a', 'c', 'b']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -125,7 +123,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `sort` function is reacti
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `splice` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a','b','c']})
+  obj = new ReactiveObjects({'reactiveArray':['a','b','c']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {
@@ -142,7 +140,7 @@ Tinytest.add('ReactiveObjects - Array Proxy function - `splice` function is reac
 
 Tinytest.add('ReactiveObjects - Array Proxy function - `unshift` function is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveArray':['a']})
+  obj = new ReactiveObjects({'reactiveArray':['a']})
   obj.ReactiveSettings.reactiveArray.type = 'array'
 
   Deps.autorun(function (c) {

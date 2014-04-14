@@ -8,37 +8,39 @@ Some examples you may know are Meteor.Collections and Sessions variables.
 Now you can easily get the same reactive goodness in your objects.
 
 #### Breaking Changes!!!
-As of v0.7.0 the api has completely changed. To use the old api reference tag v0.6.0
+As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
 
 #### Technobabble
 ReactiveObjects creates objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
 ReactiveObjects sets up Deps dependancies inside the setProperty function. 
 This means every time you update a reactive property in an object it will trigger a *invalidation*. 
 This "automatically rerun[s] templates and other computations" (Meteor Docs) as well as Deps.autorun().
+This package now uses proxies that can wrap object mutation functions. 
+For example `Array.push()` will can Deps `changed()`
 
-#### Install
+#### Behave behavior
 
-###### This is an [Atmosphere](https://atmospherejs.com/) compliant smart package for Meteorite (Meteor). 
-Install with `mrt add reactive-objects`, this package is dependent only on core Meteor's Deps smart package.
-
-This package is a [Behave](https://atmospherejs.com/package/behave) `behavior` and will require you add Behave to your app!
+This package is a [Behave](https://atmospherejs.com/package/behave) `behavior`!
+This package exports both `Behave` and `ReactiveObjects`.
+Use `Behave` to create new reactive objects.
+`ReactiveObject` provides helper functions.
 
 ## Simple Example
 ```js
-//create a model with default settings
-var ReactiveObjects = Behave.create({ReactiveObject: {}}) 
+//create a module scope
+var myReactiveObjects = Behave.extend() //not required but recommended.
 
 //create an instance with a reactive property
-reactiveObject = ReactiveObjects.new({'reactiveProp': 'foo'})
-reactiveObject.reactiveProp
+reactiveObjectInstance = myReactiveObjects({ReactiveObject:{'reactiveProp': 'foo'}})
+reactiveObjectInstance.reactiveProp
 => 'foo' //this is now a reactive property.
 
 //Its still an normal object
-reactiveObject.normalProp = 'some string'
+reactiveObjectInstance.normalProp = 'some string'
 => 'some string' //not a reactive property
 
 //You can always add more reactive properties
-reactiveObject.ReactiveFunctions.addProperty('otherReactiveProp','bar')
+reactiveObjectInstance.ReactiveFunctions.addProperty('otherReactiveProp','bar')
 => 'bar' //this now exists as a reactive property.
 ```
 ## Don't fear the Deps
@@ -52,9 +54,7 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
 ## API
 
 ##### Terms & Concepts
-
-* model: Is the result of `Behave.create({ReactiveObject: {}})`.
-* instance: Is the result of `model.new({})`.
+* instance: Is the result of `Behave({ReactiveObject:{}})` or `myModule({ReactiveObject:{}})`.
   
 ##### model.removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 

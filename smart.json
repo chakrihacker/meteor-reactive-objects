@@ -2,10 +2,7 @@
   "name": "reactive-objects",
   "description": "Objects with clean reactive properties, via ECMA-262 setProperty standards.",
   "homepage": "https://github.com/Meteor-Reaction/meteor-reactive-objects",
-  "author": "Conner D Meissner Toups",
-  "version": "0.7.0",
+  "author": "Sivli Kestanous",
+  "version": "0.8.0",
   "git": "https://github.com/Meteor-Reaction/meteor-reactive-objects.git",
-  "packages": {
-  	"behave": "0.2.0"
-  }
 }

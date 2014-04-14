@@ -1,13 +1,11 @@
-var ReactiveObjects = Behave.create({ReactiveObject: {}})
-
 Tinytest.add('ReactiveObjects - new - creates setter and getter for the properties on the object', function(test) {
-  obj = ReactiveObjects.new({'singleProp': ''})
+  obj = new ReactiveObjects({'singleProp': ''})
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'sets the getter') //property getter
 });
 
 Tinytest.add('ReactiveObjects - addProperty - adds a new property to existing object.', function(test) {
-  obj = ReactiveObjects.new({'singleProp': {}})
+  obj = new ReactiveObjects({'singleProp': {}})
   obj.singleProp = 'value' //property setter
   test.equal(obj.singleProp, 'value', 'should set the getter of the singleProp') //property getter
 
@@ -24,7 +22,7 @@ Tinytest.add('ReactiveObjects - addProperty - adds a new property to existing ob
 
 Tinytest.add('ReactiveObjects - getter/setter - object property is reactive', function(test) {
 
-  obj = ReactiveObjects.new({'reactiveProp':{}})
+  obj = new ReactiveObjects({'reactiveProp':{}})
 
   Deps.autorun(function (c) {
     var arg = obj.reactiveProp 
@@ -41,7 +39,7 @@ Tinytest.add('ReactiveObjects - getter/setter - object property is reactive', fu
 
 Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive value', function(test) {
 
-  obj = ReactiveObjects.new({'someOtherProp':{}})
+  obj = new ReactiveObjects({'someOtherProp':{}})
   obj.notReactiveProp = 'value'
   test.equal(obj.notReactiveProp, 'value', 'should call the non reactive property') //persisted
 
@@ -61,7 +59,7 @@ Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive va
 
 //remove property
 Tinytest.add('ReactiveObjects - removeProperty - transforms property into a non reactive property', function(test) {
-  var obj = ReactiveObjects.new({'Prop':{}})
+  var obj = new ReactiveObjects({'Prop':{}})
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
@@ -71,7 +69,7 @@ Tinytest.add('ReactiveObjects - removeProperty - transforms property into a non 
 //remove object
 Tinytest.add('ReactiveObjects - removeObject - transforms object into a non reactive object', function(test) {
 
-  obj = ReactiveObjects.new({basic:undefined, 'Prop':{}})
+  obj = new ReactiveObjects({basic:undefined, 'Prop':{}})
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeObject(obj)
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
@@ -86,7 +84,7 @@ Tinytest.add('ReactiveObjects - isReactiveProperty -  identifies reactive proper
   obj = {Prop: 'value'}
   test.isFalse(ReactiveObjects.isReactiveProperty(obj, 'Prop'), 'should return false with normal object') 
 
-  obj = ReactiveObjects.new({'Prop':undefined})
+  obj = new ReactiveObjects({'Prop':undefined})
   //without value
   test.isTrue(ReactiveObjects.isReactiveProperty(obj, 'Prop'), 'should return true with reactive prop w/o value') 
 
@@ -103,7 +101,7 @@ Tinytest.add('ReactiveObjects - isReactiveObject -  identifies reactive objects'
   obj = {Prop: 'value'}
   test.isFalse(ReactiveObjects.isReactiveObject(obj), 'should return false with normal object') 
 
-  obj = ReactiveObjects.new({'Prop':undefined})
+  obj = new ReactiveObjects({'Prop':undefined})
   test.isTrue(ReactiveObjects.isReactiveObject(obj), 'should return true with reactive property') 
 
 });

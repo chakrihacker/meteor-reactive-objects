@@ -7,7 +7,7 @@ Package.on_use(function (api, where) {
   api.use(['deps', 'underscore', 'behave'], ['client', 'server']);
 
   if(api.export) {
-    //api.export('ReactiveObjects', ['client', 'server']);
+    api.export(['ReactiveObjects'], ['client', 'server']);
   }
   
   api.add_files([
@@ -21,7 +21,7 @@ Package.on_use(function (api, where) {
 Package.on_test(function(api) {
 
   api.use('reactive-objects');
-  api.use(['tinytest', 'deps', 'underscore', 'behave'], ['client', 'server']);
+  api.use(['tinytest', 'deps', 'underscore'], ['client', 'server']);
 
   api.add_files([
     'tests/public-api.tests.js',
