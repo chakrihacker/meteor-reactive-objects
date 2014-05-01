@@ -8,8 +8,8 @@ Some examples you may know are Meteor.Collections and Sessions variables.
 Now you can easily get the same reactive goodness in your objects.
 
 #### Breaking Changes!!!
-As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
-As of v0.8.0 this package is no longer a Behave behavior (because that was a bad idea, sorry)
+- As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
+- As of v0.8.0 this package is no longer a Behave behavior (because that was a bad idea, sorry)
 
 #### Technobabble
 ReactiveObjects creates objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
@@ -77,7 +77,7 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
  - `deps` is the deps handle for the property.
 
 ## Proxies
-  ReactiveObjects does its best not to mutate any values you pass into it. Unfortunately their is no universal way to observe objects changes without overriding its prototype or using wrappers. Proxies are wrappers around existing objects like arrays. To create you own proxies see Behave model settings.   
+  ReactiveObjects does its best not to mutate any values you pass into it. Unfortunately their is no universal way to observe objects changes without overriding its prototype or using wrappers. Proxies are wrappers around existing objects like arrays.
  - `default` Any genaric property that calls deps `changed()` on `set` and deps `depend()` on `get`
  - `array` An array proxy that wraps array functions with deps calls.
  
