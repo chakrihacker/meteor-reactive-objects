@@ -37,7 +37,7 @@ Tinytest.add('ReactiveObjects - getter/setter - object property is reactive', fu
 
 });
 
-Tinytest.add('ReactiveObjects - ReactiveSettings - value returns non-reactive value', function(test) {
+Tinytest.add('ReactiveObjects - ReactiveConfig - value returns non-reactive value', function(test) {
 
   obj = new ReactiveObjects({'someOtherProp':{}})
   obj.notReactiveProp = 'value'
@@ -63,7 +63,7 @@ Tinytest.add('ReactiveObjects - removeProperty - transforms property into a non 
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeProperty(obj, 'Prop')
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
-  test.isFalse(obj.ReactiveSettings.hasOwnProperty('Prop'), 'object should not have reactive settings for removed property') 
+  test.isFalse(obj.ReactiveConfig.hasOwnProperty('Prop'), 'object should not have reactive settings for removed property') 
 });
 
 //remove object
@@ -73,7 +73,7 @@ Tinytest.add('ReactiveObjects - removeObject - transforms object into a non reac
   obj.Prop = 'value' //property setter
   ReactiveObjects.removeObject(obj)
   test.equal(obj.Prop, 'value', 'should call the non reactive property') //persisted
-  test.isFalse(obj.hasOwnProperty('ReactiveSettings'), 'should not have settings') 
+  test.isFalse(obj.hasOwnProperty('ReactiveConfig'), 'should not have settings') 
   test.isFalse(obj.hasOwnProperty('ReactiveFunctions'), 'should not have reactive functions') 
 });
 
