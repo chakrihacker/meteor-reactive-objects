@@ -8,6 +8,7 @@ Some examples you may know are Meteor.Collections and Sessions variables.
 Now you can easily get the same reactive goodness in your objects.
 
 #### Breaking Changes!!!
+- As of v0.8.1 this package is built for meteor v0.9.0+
 - As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
 - As of v0.8.0 this package is no longer a Behave behavior (because that was a bad idea, sorry)
 
