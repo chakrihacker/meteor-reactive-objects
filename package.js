@@ -7,7 +7,7 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   
-  api.use(['deps', 'underscore', 'behave'], ['client', 'server']);
+  api.use(['deps', 'underscore'], ['client', 'server']);
 
   if(api.export) {
     api.export(['ReactiveObjects'], ['client', 'server']);
