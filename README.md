@@ -128,7 +128,7 @@ reactiveObject.otherReactiveProp = 42
 
 ## Full Spec 'N Test [![Build Status](https://travis-ci.org/Meteor-Reaction/meteor-reactive-objects.png)](https://travis-ci.org/Meteor-Reaction/meteor-reactive-objects) 
 
-To see the test run `mrt test-packages <path to package>`. 
+To see the test run `meteor test-packages <path to package>`. 
 These will always be updated before the readme so if something seems off, run the tests; I will try to keep the doc up-to-date.
 
 *This package will not hit 1.0.0 until meteor is 1.0.0. No point in saying its stable when the Deps api may change.*
