@@ -8,7 +8,8 @@ Some examples you may know are Meteor.Collections and Sessions variables.
 Now you can easily get the same reactive goodness in your objects.
 
 #### Breaking Changes!!!
-As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
+- As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
+- As of v0.8.0 this package is no longer a Behave behavior (because that was a bad idea, sorry)
 
 #### Technobabble
 ReactiveObjects creates objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
@@ -18,20 +19,11 @@ This "automatically rerun[s] templates and other computations" (Meteor Docs) as 
 This package now uses proxies that can wrap object mutation functions. 
 For example `Array.push()` will can Deps `changed()`
 
-#### Behave behavior
-
-This package is a [Behave](https://atmospherejs.com/package/behave) `behavior`!
-This package exports both `Behave` and `ReactiveObjects`.
-Use `Behave` to create new reactive objects.
-`ReactiveObject` provides helper functions.
-
-## Simple Example
 ```js
 //create a module scope
-var myReactiveObjects = Behave.extend() //not required but recommended.
 
 //create an instance with a reactive property
-reactiveObjectInstance = myReactiveObjects({ReactiveObject:{'reactiveProp': 'foo'}})
+reactiveObjectInstance = ReactiveObject({'reactiveProp': 'foo')
 reactiveObjectInstance.reactiveProp
 => 'foo' //this is now a reactive property.
 
@@ -54,24 +46,24 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
 ## API
 
 ##### Terms & Concepts
-* instance: Is the result of `Behave({ReactiveObject:{}})` or `myModule({ReactiveObject:{}})`.
+* instance: Is the result of `ReactiveObject({})`
   
-##### model.removeProperty(object, property)
+##### ReactiveObject.removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 
   The property is **converted** back to a standard property with the current value. 
 
   - Note: to completely remove a reactive property call this function and then run `delete object.property`  
   
-##### model.removeObject(object)
+##### ReactiveObject.removeObject(object)
   - Removes reactive properties form the object and returns the object. 
   The properties are **converted** back to standard properties with their current values. 
 
   - Note: to completely remove the object just call `delete object`  
   
-##### model.isReactiveProperty(object, property)
+##### ReactiveObject.isReactiveProperty(object, property)
   - Checks if the given property is reactive and returns boolean.
    
-##### model.isReactiveObject(object)
+##### ReactiveObject.isReactiveObject(object)
   - Checks if the object has any reactive properties and returns boolean.
    
 ##### instance.ReactiveFunctions.addProperty(name, value)
@@ -85,19 +77,15 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
  - `deps` is the deps handle for the property.
 
 ## Proxies
-  ReactiveObjects does its best not to mutate any values you pass into it. Unfortunately their is no universal way to observe objects changes without overriding its prototype or using wrappers. Proxies are wrappers around existing objects like arrays. To create you own proxies see Behave model settings.   
+  ReactiveObjects does its best not to mutate any values you pass into it. Unfortunately their is no universal way to observe objects changes without overriding its prototype or using wrappers. Proxies are wrappers around existing objects like arrays.
  - `default` Any genaric property that calls deps `changed()` on `set` and deps `depend()` on `get`
  - `array` An array proxy that wraps array functions with deps calls.
  
-## Behave model settings
+## ReactiveObject settings
   ```js 
-    Behave.create({ReactiveObject: {
-      dynamicProxies: true //default
-      proxies: {}
-    }}) 
+    ReactiveObject.dynamicProxies = true //default
   ```
  - `dynamicProxies` is a boolean that enables type detection. Currently this just checks to see if the value you added is an array or not. If it is an array it sets `instance.ReactiveSettings.myArray.type = 'array'`. This property will now call on the array proxy. If you want manually control property proxy type then set this to false.
- - `proxies` This should any proxies you wish to add. See `lib/proxies.js` for examples
  
 ## Use Case?
 
