@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Objects with clean reactive properties, via ECMA-262 property get/set standards.",
-  version: "0.8.1",
+  version: "0.8.2",
   git: 'https://github.com/Meteor-Reaction/meteor-reactive-objects.git'
 });
 
