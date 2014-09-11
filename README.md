@@ -1,10 +1,6 @@
 ReactiveObjects
 =======================
 
-#### BROKEN DO NOT USE
-
-I made a bad call when creating 0.7.1 that ended up using the client window / node to store properties, without my realizing it. I am working on fixing this as fast as possible, for now please don't use this with any meteor 0.9.x+ apps! Sorry.
-
 #### Add reactivity to your objects
 
 In Meteor we have a lot of near magical tools that automatically update the DOM and rerun our functions. 
@@ -12,8 +8,9 @@ Some examples you may know are Meteor.Collections and Sessions variables.
 Now you can easily get the same reactive goodness in your objects.
 
 #### Breaking Changes!!!
-- This package from v0.7.1-atm has a major bug, DO NOT USE! The fixed version will be built for meteor v0.9.1+
-- To use the old api reference tag v0.6.0
+- As of v0.8.1 this package is built for meteor v0.9.0+
+- As of v0.7.1 the api has completely changed. To use the old api reference tag v0.6.0
+- As of v0.8.0 this package is no longer a Behave behavior (because that was a bad idea, sorry)
 
 #### Technobabble
 ReactiveObjects creates objects with clean reactive properties, via ECMA-262 [[get]] / [[set]] standards. 
