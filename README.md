@@ -47,7 +47,7 @@ Read [the docs](http://docs.meteor.com/#deps) and check out EventedMind's Deps v
 ## API
 
 ##### Terms & Concepts
-* instance: Is the result of `ReactiveObject({})`
+* instance: Is the result of `new ReactiveObject({})`
   
 ##### ReactiveObjects.removeProperty(object, property)
   - Removes a reactive property form the object and returns the object. 
