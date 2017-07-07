@@ -24,7 +24,7 @@ For example `Array.push()` will can Deps `changed()`
 //create a module scope
 
 //create an instance with a reactive property
-reactiveObjectInstance = new ReactiveObjects({'reactiveProp': 'foo')
+reactiveObjectInstance = new ReactiveObjects({'reactiveProp': 'foo'})
 reactiveObjectInstance.reactiveProp
 => 'foo' //this is now a reactive property.
 
